@@ -1,12 +1,10 @@
 package javalabassignment;
 
 import java.awt.Container;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.logging.Handler;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -47,7 +45,7 @@ public class JavaLabAssignment extends JFrame {
                     e.consume();  // if it's not a number, ignore the event
                 }
             }
-        });
+        });// This is for so shat It only Takes Numeric value
         c.add(tf1);//adding Textfield to Container
 
         tf2 = new JTextField();
@@ -86,6 +84,7 @@ public class JavaLabAssignment extends JFrame {
         c.add(rtf);
 
         MultipleActionListner mal = new MultipleActionListner();
+
         add.addActionListener(mal);
         sub.addActionListener(mal);
         mul.addActionListener(mal);
@@ -97,51 +96,54 @@ public class JavaLabAssignment extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String a, b;
-            a = tf1.getText().toString().toLowerCase();
+
             int input1, input2;
-            input1 = Integer.parseInt(tf1.getText().toString());
-            input2 = Integer.parseInt(tf2.getText().toString());
+                //Error Handleing if fields are empty!
+            if (!tf1.getText().isEmpty() && !tf2.getText().isEmpty()) {
+                input1 = Integer.parseInt(tf1.getText().toString());
+                input2 = Integer.parseInt(tf2.getText().toString());
+                try {
 
-            try {
-
-                if (e.getSource() == add) {
-                    rtf.setText("");
-                    int x = input1 + input2;
-                    rtf.setText("" + x);
-
-                } else if (e.getSource() == sub) {
-                    rtf.setText("");
-                    int x = input1 - input2;
-                    rtf.setText("" + x);
-
-                } else if (e.getSource() == mul) {
-                    rtf.setText("");
-                    int x = input1 * input2;
-                    rtf.setText("" + x);
-
-                } else {
-                    rtf.setText("");
-                    if (input1 > input2) {
-                        int x = input1 / input2;
+                    if (e.getSource() == add) {
+                        rtf.setText("");
+                        int x = input1 + input2;
                         rtf.setText("" + x);
 
-                    } else if (input1 < input2) {
-                        int x = input2 / input1;
+                    } else if (e.getSource() == sub) {
+                        rtf.setText("");
+                        int x = input1 - input2;
+                        rtf.setText("" + x);
+
+                    } else if (e.getSource() == mul) {
+                        rtf.setText("");
+                        int x = input1 * input2;
                         rtf.setText("" + x);
 
                     } else {
-                        int x = input1 / input2;
-                        rtf.setText("" + x);
+                        rtf.setText("");
+                        if (input1 > input2) {
+                            int x = input1 / input2;
+                            rtf.setText("" + x);
+
+                        } else if (input1 < input2) {
+                            int x = input2 / input1;
+                            rtf.setText("" + x);
+
+                        } else {
+                            int x = input1 / input2;
+                            rtf.setText("" + x);
+                        }
+
                     }
 
+                } catch (Exception ex) {
+
                 }
-
-            } catch (Exception ex) {
-
+            } else {
+                rtf.setText("Text Fields Can not be empty !");
             }
 
         }
-    }
 
+    }
 }
